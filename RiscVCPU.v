@@ -75,6 +75,72 @@ module RiscVCPU(
         .write_data(read_data2),
         .read_data(mem_data)
     );
+/*
+	 always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            IF_ID_pc <= 0;
+            IF_ID_instruction <= 0;
+        end else begin
+            IF_ID_pc <= pc;
+            IF_ID_instruction <= instruction;
+        end
+    end
 
+    // ID 阶段
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            ID_EX_regA <= 0;
+            ID_EX_regB <= 0;
+            ID_EX_imm <= 0;
+            ID_EX_ALUControl <= 0;
+            ID_EX_mem_read <= 0;
+            ID_EX_mem_write <= 0;
+            ID_EX_reg_write <= 0;
+            ID_EX_branch <= 0;
+            ID_EX_pc <= 0;
+        end else begin
+            ID_EX_regA <= read_data1;
+            ID_EX_regB <= read_data2;
+            ID_EX_imm <= {{20{IF_ID_instruction[31]}}, IF_ID_instruction[31:20]};
+            ID_EX_ALUControl <= ALUControl;
+            ID_EX_mem_read <= mem_read;
+            ID_EX_mem_write <= mem_write;
+            ID_EX_reg_write <= reg_write;
+            ID_EX_branch <= branch;
+            ID_EX_pc <= IF_ID_pc;
+        end
+    end
+
+    // EX 阶段
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            EX_MEM_ALU_result <= 0;
+            EX_MEM_mem_address <= 0;
+            EX_MEM_mem_read <= 0;
+            EX_MEM_mem_write <= 0;
+            EX_MEM_reg_write <= 0;
+        end else begin
+            EX_MEM_ALU_result <= ALU_result;
+            EX_MEM_mem_address <= ID_EX_regB;
+            EX_MEM_mem_read <= ID_EX_mem_read;
+            EX_MEM_mem_write <= ID_EX_mem_write;
+            EX_MEM_reg_write <= ID_EX_reg_write;
+        end
+    end
+
+    // MEM 阶段
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            MEM_WB_data <= 0;
+            MEM_WB_ALU_result <= 0;
+            MEM_WB_reg_write <= 0;
+        end else begin
+            MEM_WB_data <= DM.read_data;
+            MEM_WB_ALU_result <= EX_MEM_ALU_result;
+            MEM_WB_reg_write <= EX_MEM_reg_write;
+        end
+    end
+
+endmodule*/
     assign branch_target = pc + 4;
 endmodule
